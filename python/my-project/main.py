@@ -8,8 +8,9 @@ class axes(Scene):
 
         self.play(Write(axes), Write(x_lab), Write(y_lab))
         
-        rec = Rectangle(height = 0.5, width = 0.5)
+        rec = Rectangle(height = 0.5, width = 0.5) # this thing just draws somewhere in the plot
         rec.move_to(axes.c2p(4, 2))
 
         self.play(Write(rec))
         self.wait(2)
+    # use manim -pqh main.py
