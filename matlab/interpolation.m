@@ -4,6 +4,7 @@ y = [15559,239969,319339,394642,514346,737975,899529,1096046,1505219,1784441,223
 cs = csapi(x,y);
 
 fnplt(cs);
+xlim([1903 2024])
 hold on
 plot(x,y,'o')
 legend('cubic spline','data')
