@@ -22,3 +22,6 @@ venv.bak/
 
 # manim
 media/
+
+# obsidian
+.obsidian/
