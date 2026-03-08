@@ -94,3 +94,44 @@ class population_rate(Scene):
         first_derivative_func = [f1p,f2p,f3p,f4p,f5p,f6p,f7p,f8p,f9p,f10p,f11p,f12p,f13p,f14p,f15p]
         for func in first_derivative_func:
             self.play(Create(func), run_time=0.5)
+
+class population_growth(Scene):
+    def construct(self):
+        axes = Axes(
+            x_range = (1903, 2024, 11), 
+            y_range = (-20000, 20000, 5000), 
+            tips = False,
+            x_length=config.frame_width-4,
+            x_axis_config={
+                "decimal_number_config": {
+                    "group_with_commas": False,
+                    "num_decimal_places": 0
+                }
+            }
+        )
+        
+        axes.add_coordinates()
+        x_lab = axes.get_x_axis_label("Year")
+        y_lab = axes.get_y_axis_label("Population Growth Rate")
+
+        self.play(Write(axes), Write(x_lab), Write(y_lab))
+
+        f1pp = axes.plot(lambda x: (20819805046467927*x)/281474976710656 - 40148870796180241977/281474976710656,x_range=[1903,1918],color = BLUE)
+        f2pp = axes.plot(lambda x: (10409902523233941*x)/140737488355328 - 10037217699045038947/70368744177664,x_range=[1918,1939],color = BLUE)
+        f3pp = axes.plot(lambda x: 17630149854651169659/70368744177664 - (9063933500474937*x)/70368744177664,x_range=[1939,1948],color = BLUE)
+        f4pp = axes.plot(lambda x: (22327969958867667*x)/140737488355328 - 10886917672105557689/35184372088832,x_range=[1948,1960],color = BLUE)
+        f5pp = axes.plot(lambda x: 5246015606765954677/70368744177664 - (20973226086884721*x)/562949953421312,x_range=[1960,1970],color = BLUE)
+        f6pp = axes.plot(lambda x: (11071568933305959*x)/70368744177664 - 10864815564409509711/35184372088832,x_range=[1970,1975],color = BLUE)
+        f7pp = axes.plot(lambda x: 17266139333499261355/17592186044416 - (8725042327333293*x)/17592186044416,x_range=[1975,1980],color = BLUE)
+        f8pp = axes.plot(lambda x: (1886137370444091*x)/8796093022208 - 1869637115394814839/4398046511104,x_range=[1980,1990],color = BLUE)
+        f9pp = axes.plot(lambda x: (13606142408808069*x)/8796093022208 - 13531042128566972949/4398046511104,x_range=[1990,1995],color = BLUE)
+        f10pp = axes.plot(lambda x: 52202383965709880729/17592186044416 - (26084232716207307*x)/17592186044416,x_range=[1995,2000],color = BLUE)
+        f11pp = axes.plot(lambda x: 796537166474828177/137438953472 - (25480709693870685*x)/8796093022208,x_range=[2000,2007],color = BLUE)
+        f12pp = axes.plot(lambda x: (26601133386955833*x)/2199023255552 - 53428826132922722167/2199023255552,x_range=[2007,2010],color = BLUE)
+        f13pp = axes.plot(lambda x: 7531453863805393403/1099511627776 - (7474356095896659*x)/2199023255552,x_range=[2010,2015],color = BLUE)
+        f14pp = axes.plot(lambda x: 19265067993413921249/4398046511104 - (9558763079233689*x)/4398046511104,x_range=[2015,2020],color = BLUE)
+        f15pp = axes.plot(lambda x: 75254171849273059/17179869184 - (597422692452105*x)/274877906944,x_range=[2020,2024],color = BLUE)
+
+        second_derivative_func = [f1pp,f2pp,f3pp,f4pp,f5pp,f6pp,f7pp,f8pp,f9pp,f10pp,f11pp,f12pp,f13pp,f14pp,f15pp]
+        for func in second_derivative_func:
+            self.play(Create(func), run_time=0.5)
