@@ -1,5 +1,5 @@
 from manim import * 
-class axes(Scene):
+class population(Scene):
     def construct(self):
         years = [1903,1918,1939,1948,1960,1970,1975,1980,1990,1995,2000,2007,2010,2015,2020,2024]
         population = [15559,239969,319339,394642,514346,737975,899529,1096046,1505219,1784441,2234088,2822216,2924433,3292071,3708890,3876806]
@@ -15,8 +15,8 @@ class axes(Scene):
                     "num_decimal_places": 0
                 }
             }
-            )
-        axes.shift(RIGHT * 0.8)
+        )
+        
         axes.add_coordinates()
         x_lab = axes.get_x_axis_label("Year")
         y_lab = axes.get_y_axis_label("Population")
@@ -53,3 +53,44 @@ class axes(Scene):
         self.play(write_func)
         self.wait(2)
     # use manim -pqh main.py
+
+class population_rate(Scene):
+    def construct(self):
+        axes = Axes(
+            x_range = (1903, 2024, 11), 
+            y_range = (0, 100000, 10000), 
+            tips = False,
+            x_length=config.frame_width-4,
+            x_axis_config={
+                "decimal_number_config": {
+                    "group_with_commas": False,
+                    "num_decimal_places": 0
+                }
+            }
+        )
+
+        axes.add_coordinates()
+        x_lab = axes.get_x_axis_label("Year")
+        y_lab = axes.get_y_axis_label("Population Rate")
+
+        self.play(Write(axes), Write(x_lab), Write(y_lab))
+
+        f1p = axes.plot(lambda x: (20819805046467927*(x - 1903)**2)/562949953421312 - (4131107755873257*x)/2199023255552 + 7919280669254711711/2199023255552,x_range=[1903,1918],color = BLUE)
+        f2p = axes.plot(lambda x: (10409902523233941*(x - 1918)**2)/281474976710656 - (6765147407961191*x)/8796093022208 + 6516005664772636149/4398046511104,x_range=[1918,1939],color = BLUE)
+        f3p = axes.plot(lambda x: (862231206722919*x)/1099511627776 - (9063933500474937*(x - 1939)**2)/140737488355328 - 416158703250908713/274877906944,x_range=[1939,1948],color = BLUE)
+        f4p = axes.plot(lambda x: (22327969958867667*(x - 1948)**2)/281474976710656 - (3299075534250965*x)/8796093022208 + 1625161399728904075/2199023255552,x_range=[1948,1960],color = BLUE)
+        f5p = axes.plot(lambda x: (6723450967449877*x)/4398046511104 - (20973226086884721*(x - 1960)**2)/1125899906842624 - 204851518560975691/68719476736,x_range=[1960,1970],color = BLUE)
+        f6p = axes.plot(lambda x: (158905605065859*x)/137438953472 + (11071568933305959*(x - 1970)**2)/140737488355328 - 309090644113200711/137438953472,x_range=[1970,1975],color = BLUE)
+        f7p = axes.plot(lambda x: (33379625992195*x)/17179869184 - (8725042327333293*(x - 1975)**2)/35184372088832 - 261189923363853641/68719476736,x_range=[1975,1980],color = BLUE)
+        f8p = axes.plot(lambda x: (1886137370444091*(x - 1980)**2)/17592186044416 - (2361118655164749*x)/4398046511104 + 1212764726897613755/1099511627776,x_range=[1980,1990],color = BLUE)
+        f9p = axes.plot(lambda x: (3534784098527853*x)/2199023255552 + (13606142408808069*(x - 1990)**2)/17592186044416 - 3467213623516787039/1099511627776,x_range=[1990,1995],color = BLUE)
+        f10p = axes.plot(lambda x: (5135615527384477*x)/549755813888 - (26084232716207307*(x - 1995)**2)/35184372088832 - 10205556420992777143/549755813888,x_range=[1995,2000],color = BLUE)
+        f11p = axes.plot(lambda x: (1059954165477083*x)/549755813888 - (25480709693870685*(x - 2000)**2)/17592186044416 - 129026428161422353/34359738368,x_range=[2000,2007],color = BLUE)
+        f12p = axes.plot(lambda x: (26601133386955833*(x - 2007)**2)/4398046511104 - (5043928162795667*x)/274877906944 + 10135107734136407897/274877906944,x_range=[2007,2010],color = BLUE)
+        f13p = axes.plot(lambda x: (4931496857312777*x)/274877906944 - (7474356095896659*(x - 2010)**2)/4398046511104 - 1237566677343925235/34359738368,x_range=[2010,2015],color = BLUE)
+        f14p = axes.plot(lambda x: (2080194379018957*x)/2199023255552 - (9558763079233689*(x - 2015)**2)/8796093022208 - 3993559135051156403/2199023255552,x_range=[2015,2020],color = BLUE)
+        f15p = axes.plot(lambda x: 345456657389325993/17179869184 - (597422692452105*(x - 2020)**2)/549755813888 - (681772291220789*x)/68719476736,x_range=[2020,2024],color = BLUE)
+
+        first_derivative_func = [f1p,f2p,f3p,f4p,f5p,f6p,f7p,f8p,f9p,f10p,f11p,f12p,f13p,f14p,f15p]
+        for func in first_derivative_func:
+            self.play(Create(func), run_time=0.5)
