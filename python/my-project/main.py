@@ -1,10 +1,14 @@
 from manim import * 
 class axes(Scene):
     def construct(self):
+        years = [1903,1918,1939,1948,1960,1970,1975,1980,1990,1995,2000,2007,2010,2015,2020,2024]
+        population = [15559,239969,319339,394642,514346,737975,899529,1096046,1505219,1784441,2234088,2822216,2924433,3292071,3708890,3876806]
+
         axes = Axes(
             x_range = (1903, 2024, 11), 
             y_range = (0, 4000000, 500000), 
             tips = False,
+            x_length=config.frame_width-4,
             x_axis_config={
                 "decimal_number_config": {
                     "group_with_commas": False,
@@ -12,15 +16,12 @@ class axes(Scene):
                 }
             }
             )
-        axes.shift(RIGHT * 0.7)
+        axes.shift(RIGHT * 0.8)
         axes.add_coordinates()
         x_lab = axes.get_x_axis_label("Year")
         y_lab = axes.get_y_axis_label("Population")
 
         self.play(Write(axes), Write(x_lab), Write(y_lab))
-
-        x = [1903,1918,1939,1948,1960,1970,1975,1980,1990,1995,2000,2007,2010,2015,2020,2024]
-        y = [15559,239969,319339,394642,514346,737975,899529,1096046,1505219,1784441,2234088,2822216,2924433,3292071,3708890,3876806]
 
         f1 = axes.plot(lambda x: ((12.327801029757717)*((x-1903)**3))+((-9.393051541049447*10**2)*((x-1903)**2))+((2.627648874654535*10**4)*(x-1903))+15559,x_range=[1903,1918], color = BLUE)
         f2 = axes.plot(lambda x: ((12.327801029757691)*((x-1918)**3))+((-3.845541077658476*10**2)*((x-1918)**2))+((6.418599818483467*10**3)*(x-1918))+239969,x_range=[1918,1939], color = BLUE)
@@ -37,21 +38,18 @@ class axes(Scene):
         f13 = axes.plot(lambda x: (-5.664906056985167*10**2)*((x-2010)**3)+(8.970340527071634*10**3)*((x-2010)**2)+(4.283816250710475*10**4)*(x-2010)+(2924433),x_range=[2010,2015], color = BLUE)
         f14 = axes.plot(lambda x: (-3.622351823360717*10**2)*((x-2015)**3)+(4.729814415938920*10**2)*((x-2015)**2)+(9.005477235043234*10**4)*(x-2015)+(3292071),x_range=[2015,2020], color = BLUE)
         f15 = axes.plot(lambda x: (-3.622351823360714*10**2)*((x-2020)**3)+(-4.960546293447180*10**3)*((x-2020)**2)+(6.761694809116586*10**4)*(x-2020)+(3708890),x_range=[2020,2024], color = BLUE)
+        interpolation_func = [f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15]
 
-        self.play(Write(f1))
-        self.play(Write(f2))
-        self.play(Write(f3))
-        self.play(Write(f4))
-        self.play(Write(f5))
-        self.play(Write(f6))
-        self.play(Write(f7))
-        self.play(Write(f8))
-        self.play(Write(f9))
-        self.play(Write(f10))
-        self.play(Write(f11))
-        self.play(Write(f12))
-        self.play(Write(f13))
-        self.play(Write(f14))
-        self.play(Write(f15))
+        for i in range(len(years)):
+            point = (years[i],population[i])
+            dot_coord = Dot(axes.c2p(*point),color=TEAL)
+            self.add(dot_coord)
+            self.wait(0.06)
+            
+        write_func = []
+        for func in interpolation_func:
+            write_func.append(Write(func))
+
+        self.play(write_func)
         self.wait(2)
     # use manim -pqh main.py
