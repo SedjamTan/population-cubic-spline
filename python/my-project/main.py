@@ -1,4 +1,7 @@
 from manim import * 
+
+# Typically use manim -qh main.py
+
 class population(Scene):
     def construct(self):
         years = [1903,1918,1939,1948,1960,1970,1975,1980,1990,1995,2000,2007,2010,2015,2020,2024]
@@ -9,6 +12,9 @@ class population(Scene):
             y_range = (0, 4000000, 500000), 
             tips = False,
             x_length=config.frame_width-4,
+            #axis_config={
+            #    "color": BLACK
+            #},
             x_axis_config={
                 "decimal_number_config": {
                     "group_with_commas": False,
@@ -17,9 +23,10 @@ class population(Scene):
             }
         )
         
-        axes.add_coordinates()
+        axes.add_coordinates()#(color=BLACK)
         x_lab = axes.get_x_axis_label("Year")
         y_lab = axes.get_y_axis_label("Population")
+        #y_lab.color = x_lab.color = BLACK
 
         self.play(Write(axes), Write(x_lab), Write(y_lab))
 
@@ -42,25 +49,27 @@ class population(Scene):
 
         for i in range(len(years)):
             point = (years[i],population[i])
-            dot_coord = Dot(axes.c2p(*point),color=TEAL)
+            dot_coord = Dot(axes.c2p(*point),color=YELLOW,z_index=2)
             self.add(dot_coord)
             self.wait(0.06)
             
-        write_func = []
+        create_func = []
         for func in interpolation_func:
-            write_func.append(Write(func))
+            create_func.append(Create(func))
 
-        self.play(write_func)
+        self.play(create_func)
         self.wait(2)
-    # use manim -pqh main.py
 
-class population_rate(Scene):
+class population_growth(Scene):
     def construct(self):
         axes = Axes(
             x_range = (1903, 2024, 11), 
             y_range = (0, 100000, 10000), 
             tips = False,
             x_length=config.frame_width-4,
+            #axis_config={
+            #    "color": BLACK
+            #},
             x_axis_config={
                 "decimal_number_config": {
                     "group_with_commas": False,
@@ -69,9 +78,10 @@ class population_rate(Scene):
             }
         )
 
-        axes.add_coordinates()
+        axes.add_coordinates()#(color=BLACK)
         x_lab = axes.get_x_axis_label("Year")
-        y_lab = axes.get_y_axis_label("Population Rate")
+        y_lab = axes.get_y_axis_label(MathTex(r"\text{Population Growth Rate}"))
+        #y_lab.color = x_lab.color = BLACK
 
         self.play(Write(axes), Write(x_lab), Write(y_lab))
 
@@ -95,13 +105,18 @@ class population_rate(Scene):
         for func in first_derivative_func:
             self.play(Create(func), run_time=0.5)
 
-class population_growth(Scene):
+        self.wait(2)
+
+class population_accelerate(Scene):
     def construct(self):
         axes = Axes(
             x_range = (1903, 2024, 11), 
             y_range = (-20000, 20000, 5000), 
             tips = False,
             x_length=config.frame_width-4,
+            #axis_config={
+            #    "color": BLACK
+            #},
             x_axis_config={
                 "decimal_number_config": {
                     "group_with_commas": False,
@@ -110,9 +125,10 @@ class population_growth(Scene):
             }
         )
         
-        axes.add_coordinates()
+        axes.add_coordinates()#(color=BLACK)
         x_lab = axes.get_x_axis_label("Year")
-        y_lab = axes.get_y_axis_label("Population Growth Rate")
+        y_lab = axes.get_y_axis_label(MathTex(r"\text{Population Growth Acceleration}"))
+        #y_lab.color = x_lab.color = BLACK
 
         self.play(Write(axes), Write(x_lab), Write(y_lab))
 
@@ -135,3 +151,5 @@ class population_growth(Scene):
         second_derivative_func = [f1pp,f2pp,f3pp,f4pp,f5pp,f6pp,f7pp,f8pp,f9pp,f10pp,f11pp,f12pp,f13pp,f14pp,f15pp]
         for func in second_derivative_func:
             self.play(Create(func), run_time=0.5)
+
+        self.wait(2)
