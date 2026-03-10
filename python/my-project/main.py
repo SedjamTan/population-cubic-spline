@@ -1,4 +1,5 @@
 from manim import * 
+import numpy
 
 # Typically use manim -qh main.py
 
@@ -107,6 +108,22 @@ class population_growth(Scene):
 
         self.wait(2)
 
+        f11 = lambda x: (1059954165477083*x)/549755813888 - (25480709693870685*(x - 2000)**2)/17592186044416 - 129026428161422353/34359738368
+        x = numpy.linspace(2000,2001)
+        y = f11(x)
+
+        peak_index = np.argmax(y)
+
+        peak_x = x[peak_index]
+        peak_y = y[peak_index]
+        point = axes.c2p(peak_x, peak_y)
+
+        dot = Dot(point,color=YELLOW,z_index=2)
+        label = MathTex(f"\\text{{Growth rate:}} \\\\ \\text{{{peak_y:.0f} people/year at {peak_x:.2f}}}",font_size=25).move_to(axes.c2p(peak_x,peak_y) + LEFT*2)
+        self.add(dot)
+        self.play(Create(label))
+        self.wait(2)
+
 class population_accelerate(Scene):
     def construct(self):
         axes = Axes(
@@ -152,4 +169,21 @@ class population_accelerate(Scene):
         for func in second_derivative_func:
             self.play(Create(func), run_time=0.5)
 
+        self.wait(2)
+
+        f13 = lambda x: 7531453863805393403/1099511627776 - (7474356095896659*x)/2199023255552
+        x = numpy.linspace(2010,2015)
+        y = f13(x)
+
+        peak_index = np.argmax(y)
+
+        peak_x = x[peak_index]
+        peak_y = y[peak_index]
+
+        point = axes.c2p(peak_x, peak_y)
+
+        dot = Dot(point,color=YELLOW,z_index=2)
+        label = MathTex(f"\\text{{Acceleration of Growth Rate:}} \\\\ \\text{{{peak_y:.0f} people / year}}^2 \\text{{at {peak_x:.2f}}}",font_size=25).move_to(axes.c2p(peak_x,peak_y) + LEFT*2)
+        self.add(dot)
+        self.play(Create(label))
         self.wait(2)
