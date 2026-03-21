@@ -9,7 +9,7 @@ The implementation provides:
 2. A visualization of the spline’s growth rate (first derivative).
 3. A visualization of the spline’s growth acceleration (second derivative).
 
-The repository includes both a Python implementation (using Manim for visualization), MATLAB scripts (using MATLAB’s spline tools and piecewise polynomial expressions), as well as the results of these computations.
+The repository includes both a Python implementation (using Manim for visualization), MATLAB scripts (using MATLAB’s spline tools and piecewise polynomial expressions), as well as the results of these computations and other animations.
 
 ## Data
 The spline is fitted to the following time–population pairs (units: people):
